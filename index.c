@@ -21,6 +21,16 @@ static char rpsarray[3] = {'r', 'p', 's'};
 static struct CHOICES choices = {'r', 'p', 's'};
 static struct OUTCOMES outcome = {'w', 'l', 'd'};
 
+
+char queryUser() {
+	char userinput;
+	printf("Rock, Paper or Scissor?\n");
+	printf("Enter r, p, or s\n");
+
+	scanf("%c", &userinput);
+	return userinput;
+}
+
 int generateBotAnswer() {
 	int randomidx = rand() % 3; // generates key from 0-2
 	return rpsarray[randomidx];
@@ -28,7 +38,7 @@ int generateBotAnswer() {
 
 char userOutcome(char userinput, char botinput) {
 	// win = w | draw = d | lost = l
-	if (userinput == botinput) return outcome.draw;
+  if (userinput == botinput) return outcome.draw;
 	if (choices.rock == userinput) {
 		if (choices.paper == botinput) return outcome.lose;
 	} else if (choices.paper == userinput) {
@@ -43,14 +53,12 @@ int main() {
 	// init struct
 	// create function the will ask user a question and get answer; arg will be the question
 	char userinput, botchoice;
-	printf("Rock, Paper or Scissor?\n");
-	printf("Enter r, p, or s\n");
-
-	scanf("%c", &userinput);
+	userinput = queryUser();
 	botchoice = generateBotAnswer();
 
 	printf("You drew %c\n", userinput);
 	printf("Bot drew %c\n", botchoice);
+
 	char result = userOutcome(userinput, botchoice);
 	if (outcome.win == result) {
 		printf("Winner Winner Chicken Dinner!!!\n");
